@@ -11,6 +11,8 @@
 #'@examples
 #'LM(Sepal.Width ~ Sepal.Length, data = iris)
 #'LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
+#'LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
+#'LM(Sepal.Width ~ I(Sepal.Length * Petal.Length), data = iris)
 #'
 #'@export
 #'

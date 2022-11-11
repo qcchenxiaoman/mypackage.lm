@@ -8,6 +8,7 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
+library(bench)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -17,3 +18,58 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(mypackage.lm)
 ```
+
+### Efficiency: Benchmark `LM` against `lm`:
+
+In this section, we compare the outputs of LM against current method lm. 
+
+```{r}
+LM_result <- LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
+lm_result <- lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
+```
+
+#### Coefficients
+```{r}
+all.equal(LM_result$coefficients, lm_result$coefficients) 
+bench::mark(LM_result$coefficients, lm_result$coefficients)
+plot(bench::mark(LM_result$coefficients, lm_result$coefficients))
+```
+
+#### Residuals
+```{r}
+all.equal(LM_result$residuals, lm_result$residuals) 
+bench::mark(LM_result$residuals, lm_result$residuals)
+plot(bench::mark(LM_result$residuals, lm_result$residuals))
+```
+
+
+#### Rank 
+```{r}
+all.equal(LM_result$rank, lm_result$rank) 
+bench::mark(LM_result$rank, lm_result$rank)
+plot(bench::mark(LM_result$rank, lm_result$rank))
+```
+
+#### Fitted values
+```{r}
+all.equal(LM_result$fitted.values, lm_result$fitted.values) 
+bench::mark(LM_result$fitted.values, lm_result$fitted.values)
+plot(bench::mark(LM_result$fitted.values, lm_result$fitted.values))
+```
+
+#### Residual degree of freedom 
+```{r}
+all.equal(LM_result$df.residual, lm_result$df.residual) 
+bench::mark(LM_result$df.residual, lm_result$df.residual)
+plot(bench::mark(LM_result$df.residual, lm_result$df.residual))
+```
+#### Model
+```{r}
+all.equal(as.matrix(LM_result$model), as.matrix(lm_result$model))
+bench::mark(as.matrix(LM_result$model), as.matrix(lm_result$model))
+plot(bench::mark(as.matrix(LM_result$model), as.matrix(lm_result$model)))
+```
+
+
+
+
