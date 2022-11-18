@@ -1,17 +1,24 @@
 #'LM
 #'
 #'Fit linear regression model by given dataset and corresponding interests of covariates
-#'@param formula input the model which need to be fitted
+#'@param formula  an object of class "formula": a symbolic description of the model to be fitted.
 #'
-#'@param data input the dataset that the fitted model used
+#'@param data an optional data frame containing the variables in the model.
 #'
-#'@return the a list of result: call, terms, residuals, coefficients, coefficients_table, fitted.values, sigma, rank,
-#'df.residual, r.squared, adj.r.squared, fstatistic, model
+#'@return a list of result: coefficients, residuals, rank, fitted.values, df.residual, model, call, terms, coefficients_df, sigma, r.squared, adj.r.squared, fstatistic, F.p-value, cov.unscaled
+#'
 #'
 #'@examples
+#'## fit the simple linear regression model
 #'LM(Sepal.Width ~ Sepal.Length, data = iris)
+#'
+#'## fit the multiple linear regression model
 #'LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
+#'
+#'## fit the multiple linear regression model with interaction terms
 #'LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
+#'
+#'## fit the linear regression model with only interaction terms
 #'LM(Sepal.Width ~ I(Sepal.Length * Petal.Length), data = iris)
 #'
 #'@export
@@ -108,7 +115,7 @@ LM = function(formula, data) {
                 LM_sigma,
                 LM_r.squared,
                 LM_adj.r.squared,
-                LM_fstatistic,
+                LM_fstatistic[1,],
                 F_p_value,
                 LM_cov.unscaled)
 

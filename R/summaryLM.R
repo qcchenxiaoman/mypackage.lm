@@ -1,8 +1,8 @@
 #'summaryLM
 #'
-#'Mimic summary() of lm()
-#'Print the summary of fitted model in LM()
-#'@param result all output from fitted LM
+#'Print the summary of fitted model in LM
+#'Mimic the printing output of the build-in method summary(lm())
+#'@param result the summary of all output from fitted LM
 #'
 #'@export
 #'

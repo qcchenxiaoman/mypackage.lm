@@ -7,9 +7,9 @@
 summaryLM(result)
 }
 \arguments{
-\item{result}{all output from fitted LM}
+\item{result}{the summary of all output from fitted LM}
 }
 \description{
-Mimic summary() of lm()
-Print the summary of fitted model in LM()
+Print the summary of fitted model in LM
+Mimic the printing output of the build-in method summary(lm())
 }
