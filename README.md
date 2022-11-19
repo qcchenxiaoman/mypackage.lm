@@ -17,7 +17,7 @@ Please refer to the help page via ?summaryLM for detailed information.
 
 
 ## Installation
-```{r}
+```r
 install.packages('devtools')
 install.packages("bench")
 devtools::install_github("qcchenxiaoman/mypackage.lm", build_vignettes = T)
@@ -25,7 +25,7 @@ devtools::install_github("qcchenxiaoman/mypackage.lm", build_vignettes = T)
 
 ## Usage
 
-```{r}
+```r
 library(mypackage.lm)
 
 LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
@@ -38,6 +38,26 @@ LM_result$coefficients_df
 #> (Intercept)   1.0380691 0.28816846   3.602299 4.308316e-04
 #> Sepal.Length  0.5611860 0.06533060   8.589940 1.163254e-14
 #> Petal.Length -0.3352667 0.03064528 -10.940240 9.429194e-21
+
+summaryLM(LM(Sepal.Width ~ Sepal.Length + Petal.Width, data = iris))
+#> Call: 
+#> lm(Sepal.Width ~ Sepal.Length + Petal.Width)
+#>  
+#> Residuals: 
+#>          Min           1Q       Median           3Q          Max 
+#> -0.995626839 -0.246901242 -0.005033958  0.233537643  1.011310596 
+#> 
+#> Coefficients: 
+#>                Estimate Std. Error   t value     Pr(>|t|)    
+#> (Intercept)   1.9263208 0.32093615  6.002193 1.453405e-08 ***
+#> Sepal.Length  0.2892867 0.06604544  4.380117 2.241644e-05 ***
+#> Petal.Width  -0.4664143 0.07174926 -6.500615 1.169070e-09 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+#> 
+#> Residual standard error: 0.384057992599148 on 147 degrees of freedom 
+#> Multiple R-Squared: 0.234018769482097, Adjusted R-squared: 0.223597256141718
+#> F-Statistic: 22.4553538280624 on 2 and 147 DF, p-value: 3.09052605729221e-09
 ```
 
 For more detailed tutorial and comparisons against the existing R function, 
