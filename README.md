@@ -2,6 +2,7 @@
 # mypackage.lm
 
 <!-- badges: start -->
+  [![R-CMD-check](https://github.com/qcchenxiaoman/mypackage.lm/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/qcchenxiaoman/mypackage.lm/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of mypackage.lm is to ...
