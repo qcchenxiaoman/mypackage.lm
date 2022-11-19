@@ -13,3 +13,10 @@ summaryLM(result)
 Print the summary of fitted model in LM
 Mimic the printing output of the build-in method summary(lm())
 }
+\examples{
+## fit the simple linear regression model
+LM_result = LM(Sepal.Width ~ Sepal.Length, data = iris)
+## obtain the summary of the fitted model
+summaryLM(LM_result)
+
+}

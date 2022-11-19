@@ -24,13 +24,13 @@ library(mypackage.lm)
 
 `LM` is a function that is designed to perform the fitting of linear regression models, 
 which gives the essential fitted values and related results from a fitted linear regression model. 
-`summaryLM` is a function that prints the summary of the output from `LM`. The default data set  `iris` is used for examples and tutorials. 
+`summaryLM()` is a function that prints the summary of the output from `LM`. The default data set  `iris` is used for examples and tutorials. 
 
-### Usage of function `LM` and `summaryLM`:
+### Usage of function `LM()` and `summaryLM()`:
 
-In this section, we introduce the usage of `LM` and `summaryLM`.  
+In this section, we introduce the usage of `LM` and `summaryLM()`.  
 
-#### Call the function `LM` and obtain the related fitted values and results 
+#### Call the function `LM()` and obtain the related fitted values and results 
 
 For example, we can obtain the $R^2$ and  $R^2_{adj}$ for the fitted model, as well as the fitted coefficients and corresponding t-test results as follow: 
 ```{r}
@@ -42,9 +42,9 @@ LM_result$coefficients_df
 
 All the related results include: coefficients, residuals, rank, fitted.values, df.residual, model, call, terms, coefficients_df, sigma, r.squared, adj.r.squared, fstatistic, F.p-value, cov.unscaled. These variables can all be called by the format of `LM_result$variable_name`. 
 
-#### Call the function `LM` and use `summaryLM` to print the output    
+#### Call the function `LM()` and use `summaryLM()` to print the output    
 
-`summaryLM` provides a printed summary of outputs/related fitted results of the fitted linear regression model. 
+`summaryLM()` provides a printed summary of outputs/related fitted results of the fitted linear regression model. 
 ```{r}
 summaryLM(LM(Sepal.Width ~ Sepal.Length + Petal.Width, data = iris))
 ```
@@ -62,13 +62,20 @@ LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
 LM(Sepal.Width ~ I(Sepal.Length * Petal.Length), data = iris)
 ```
 
+#### Fit linear regression model without intercept 
 
-### Correctness and Efficiency(Benchmark): `LM` against `lm` and `summary(lm)`:
+Add -1 in the formula. 
+```{r}
+LM(Sepal.Width ~ -1 + Sepal.Length + Petal.Width, data = iris)
+```
+
+
+### Correctness and Efficiency(Benchmark): `LM()` against `lm()` and `summary(lm())`:
 Both the build-in methods `lm` and `summary(lm)` returns the related results from a fitted linear regression model, but each method would return different kinds of results. However, the function `LM` combine those results, which includes the essential results from both methods. 
 
-Therefore, in this section, we compare the outputs of `LM` against build-in method `lm` and `summary(lm)`. 
+Therefore, in this section, we compare the outputs of `LM()` against build-in method `lm` and `summary(lm())`. 
 
-We use `LM` and `lm` to fit the same model and compare both correctness and efficiency. 
+We use `LM()` and `lm()` to fit the same model and compare both correctness and efficiency. 
 ```{r}
 LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
 lm_result = lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)

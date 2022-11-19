@@ -4,6 +4,12 @@
 #'Mimic the printing output of the build-in method summary(lm())
 #'@param result the summary of all output from fitted LM
 #'
+#'@examples
+#'## fit the simple linear regression model
+#'LM_result = LM(Sepal.Width ~ Sepal.Length, data = iris)
+#'## obtain the summary of the fitted model
+#'summaryLM(LM_result)
+#'
 #'@export
 #'
 summaryLM = function(result) {
