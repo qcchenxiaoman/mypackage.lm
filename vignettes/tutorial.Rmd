@@ -8,7 +8,7 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
-library(bench)
+#library(bench)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -85,68 +85,68 @@ lm_summary_result = summary(lm_result)
 #### Coefficients
 ```{r}
 all.equal(LM_result$coefficients, lm_result$coefficients) 
-mark(LM_result$coefficients, lm_result$coefficients)
+#mark(LM_result$coefficients, lm_result$coefficients)
 ```
 
 #### Residuals
 ```{r}
 all.equal(LM_result$residuals, lm_result$residuals) 
-mark(LM_result$residuals, lm_result$residuals)
+#mark(LM_result$residuals, lm_result$residuals)
 ```
 
 #### Rank 
 ```{r}
 all.equal(LM_result$rank, lm_result$rank) 
-mark(LM_result$rank, lm_result$rank)
+#mark(LM_result$rank, lm_result$rank)
 ```
 
 #### Fitted values
 ```{r}
 all.equal(LM_result$fitted.values, lm_result$fitted.values) 
-mark(LM_result$fitted.values, lm_result$fitted.values)
+#mark(LM_result$fitted.values, lm_result$fitted.values)
 ```
 
 #### Degree of freedom of Residual
 ```{r}
 all.equal(LM_result$df.residual, lm_result$df.residual) 
-mark(LM_result$df.residual, lm_result$df.residual)
+#mark(LM_result$df.residual, lm_result$df.residual)
 ```
 
 #### Model
 ```{r}
 all.equal(as.matrix(LM_result$model), as.matrix(lm_result$model))
-mark(as.matrix(LM_result$model), as.matrix(lm_result$model))
+#mark(as.matrix(LM_result$model), as.matrix(lm_result$model))
 ```
 
 #### Sigma
 ```{r}
 all.equal(LM_result$sigma, lm_summary_result$sigma) 
-mark(LM_result$sigma, lm_summary_result$sigma)
+#mark(LM_result$sigma, lm_summary_result$sigma)
 ```
 
 #### $R^2$
 ```{r}
 all.equal(LM_result$r.squared, lm_summary_result$r.squared) 
-mark(LM_result$r.squared, lm_summary_result$r.squared)
+#mark(LM_result$r.squared, lm_summary_result$r.squared)
 ```
 
 #### $R_{adj}^2$
 ```{r}
 all.equal(LM_result$adj.r.squared, lm_summary_result$adj.r.squared) 
-mark(LM_result$adj.r.squared, lm_summary_result$adj.r.squared)
+#mark(LM_result$adj.r.squared, lm_summary_result$adj.r.squared)
 ```
 
 #### F statistics and P values 
 ```{r}
 all.equal(LM_result$fstatistic, lm_summary_result$fstatistic) 
-mark(LM_result$fstatistic, lm_summary_result$fstatistic)
+#mark(LM_result$fstatistic, lm_summary_result$fstatistic)
 ```
 
 
 #### Unscaled Covariance
 ```{r}
 all.equal(LM_result$cov.unscaled, lm_summary_result$cov.unscaled) 
-mark(LM_result$cov.unscaled, lm_summary_result$cov.unscaled)
+#mark(LM_result$cov.unscaled, lm_summary_result$cov.unscaled)
 ```
 
 
