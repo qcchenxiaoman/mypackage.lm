@@ -30,12 +30,15 @@ library(mypackage.lm)
 
 LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
 LM_result$r.squared
+#> [1] 0.456415
 LM_result$adj.r.squared
+#> [1] 0.4490193
 LM_result$coefficients_df
-
-
-summaryLM(LM_result)
+#>                Estimate Std. Error    t value     Pr(>|t|)
+#> (Intercept)   1.0380691 0.28816846   3.602299 4.308316e-04
+#> Sepal.Length  0.5611860 0.06533060   8.589940 1.163254e-14
+#> Petal.Length -0.3352667 0.03064528 -10.940240 9.429194e-21
 ```
 
 For more detailed tutorial and comparisons against the existing R function, 
-please refer to the vignettes via the following code browseVignettes(package = 'mypackage.lm').
+please refer to the vignettes via the following code `browseVignettes(package = 'mypackage.lm')`.
