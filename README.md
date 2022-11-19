@@ -9,11 +9,11 @@ The function does not explicitly present any output until you extract the desire
 The outputs can be extracted are 
 `coefficients`, `residuals`, `rank`, `fitted.values`, `df.residual, model`, `call`, `terms`, 
 `coefficients_df`, `sigma`, `r.squared`, `adj.r.squared`, `fstatistic`, `F.p-value`, `cov.unscaled`. 
-Please refer to the help page via ?LM for detailed information.
+Please refer to the help page via `?LM` for detailed information.
 
 
 - `summaryLM()` is used to print the summary of fitted linear regression models by `LM()`. 
-Please refer to the help page via ?summaryLM for detailed information.
+Please refer to the help page via `?summaryLM` for detailed information.
 
 
 ## Installation
