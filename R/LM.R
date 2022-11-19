@@ -36,9 +36,9 @@ LM = function(formula, data) {
     return(cat(
       c(
         "Warning messages: ",
-        "1: In model.response(mf, 'numeric') :",
+        "1: In model.response(mf, 'numeric'):",
         "using type = 'numeric' with a factor response will be ignored",
-        "2: In Ops.factor(y, z$residuals) : ‘-’ not meaningful for factors"
+        "2: In Ops.factor(y, z$residuals): '-' not meaningful for factors"
       ),
       sep = '\n'
     ))
