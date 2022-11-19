@@ -5,15 +5,17 @@
 #'
 #'@param data an optional data frame containing the variables in the model.
 #'
+#'
 #'@return a list of result: coefficients, residuals, rank, fitted.values, df.residual, model, call, terms, coefficients_df, sigma, r.squared, adj.r.squared, fstatistic, F.p-value, cov.unscaled
 #'
 #'
 #'@examples
 #'## fit the simple linear regression model
-#'LM(Sepal.Width ~ Sepal.Length, data = iris)
+#'LM_result = LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE) # omiting intercept
 #'
 #'## fit the multiple linear regression model
-#'LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
+#'LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
+#'LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)$coefficients ## obtain coefficients
 #'
 #'## fit the multiple linear regression model with interaction terms
 #'LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
@@ -21,9 +23,11 @@
 #'## fit the linear regression model with only interaction terms
 #'LM(Sepal.Width ~ I(Sepal.Length * Petal.Length), data = iris)
 #'
+#'
+#'
 #'@export
 #'
-LM = function(formula, data) {
+LM = function(formula, data, intercept = TRUE) {
   #### Remove NAs ####
   data = na.omit(data)
 
@@ -74,6 +78,11 @@ LM = function(formula, data) {
                      lower.tail = FALSE)
 
   #### Inference: F statistic and p val for H0: beta1=...=0 ####
+  # if(intercept == FALSE){
+  #   Ybar = 0
+  # }else{
+  #   Ybar = mean(Y)
+  # }
   Ybar = mean(Y)
   SSE = sum((Y - Yhat) ^ 2)
   SSR = sum((Yhat - Ybar) ^ 2)

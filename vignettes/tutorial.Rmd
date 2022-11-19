@@ -8,6 +8,8 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
+library(stats)
+library(bench)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -86,70 +88,70 @@ lm_summary_result = summary(lm_result)
 library(bench)
 all.equal(LM_result$coefficients, lm_result$coefficients) 
 mark(LM_result$coefficients, lm_result$coefficients)
-plot(mark(LM_result$coefficients, lm_result$coefficients))
+#plot(mark(LM_result$coefficients, lm_result$coefficients))
 ```
 
 #### Compare: Residuals
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$residuals, lm_result$residuals) 
 mark(LM_result$residuals, lm_result$residuals)
-plot(mark(LM_result$residuals, lm_result$residuals))
+#plot(mark(LM_result$residuals, lm_result$residuals))
 ```
 
 #### Compare: Rank 
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$rank, lm_result$rank) 
 mark(LM_result$rank, lm_result$rank)
-plot(mark(LM_result$rank, lm_result$rank))
+#plot(mark(LM_result$rank, lm_result$rank))
 ```
 
 #### Compare: Fitted values
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$fitted.values, lm_result$fitted.values) 
 mark(LM_result$fitted.values, lm_result$fitted.values)
-plot(mark(LM_result$fitted.values, lm_result$fitted.values))
+#plot(mark(LM_result$fitted.values, lm_result$fitted.values))
 ```
 
 #### Compare: Degree of freedom of Residual
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$df.residual, lm_result$df.residual) 
 mark(LM_result$df.residual, lm_result$df.residual)
-plot(mark(LM_result$df.residual, lm_result$df.residual))
+#plot(mark(LM_result$df.residual, lm_result$df.residual))
 ```
 
 #### Compare: Model
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(as.matrix(LM_result$model), as.matrix(lm_result$model))
 mark(as.matrix(LM_result$model), as.matrix(lm_result$model))
-plot(mark(as.matrix(LM_result$model), as.matrix(lm_result$model)))
+#plot(mark(as.matrix(LM_result$model), as.matrix(lm_result$model)))
 ```
 
 #### Compare: Sigma
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$sigma, lm_summary_result$sigma) 
 mark(LM_result$sigma, lm_summary_result$sigma)
-plot(mark(LM_result$sigma, lm_summary_result$sigma))
+#plot(mark(LM_result$sigma, lm_summary_result$sigma))
 ```
 
 #### Compare: $R^2$
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$r.squared, lm_summary_result$r.squared) 
 mark(LM_result$r.squared, lm_summary_result$r.squared)
-plot(mark(LM_result$r.squared, lm_summary_result$r.squared))
+#plot(mark(LM_result$r.squared, lm_summary_result$r.squared))
 ```
 
 #### Compare: $R_{adj}^2$
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$adj.r.squared, lm_summary_result$adj.r.squared) 
 mark(LM_result$adj.r.squared, lm_summary_result$adj.r.squared)
-plot(mark(LM_result$adj.r.squared, lm_summary_result$adj.r.squared))
+#plot(mark(LM_result$adj.r.squared, lm_summary_result$adj.r.squared))
 ```
 
 #### Compare: F statistics and P values 
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$fstatistic, lm_summary_result$fstatistic) 
 mark(LM_result$fstatistic, lm_summary_result$fstatistic)
-plot(mark(LM_result$fstatistic, lm_summary_result$fstatistic))
+#plot(mark(LM_result$fstatistic, lm_summary_result$fstatistic))
 ```
 
 
@@ -157,7 +159,7 @@ plot(mark(LM_result$fstatistic, lm_summary_result$fstatistic))
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$cov.unscaled, lm_summary_result$cov.unscaled) 
 mark(LM_result$cov.unscaled, lm_summary_result$cov.unscaled)
-plot(mark(LM_result$cov.unscaled, lm_summary_result$cov.unscaled))
+#plot(mark(LM_result$cov.unscaled, lm_summary_result$cov.unscaled))
 ```
 
 

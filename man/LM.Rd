@@ -4,7 +4,7 @@
 \alias{LM}
 \title{LM}
 \usage{
-LM(formula, data)
+LM(formula, data, intercept = TRUE)
 }
 \arguments{
 \item{formula}{an object of class "formula": a symbolic description of the model to be fitted.}
@@ -19,15 +19,18 @@ Fit linear regression model by given dataset and corresponding interests of cova
 }
 \examples{
 ## fit the simple linear regression model
-LM(Sepal.Width ~ Sepal.Length, data = iris)
+LM_result = LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE) # omiting intercept
 
 ## fit the multiple linear regression model
-LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
+LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
+LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)$coefficients ## obtain coefficients
 
 ## fit the multiple linear regression model with interaction terms
 LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
 
 ## fit the linear regression model with only interaction terms
 LM(Sepal.Width ~ I(Sepal.Length * Petal.Length), data = iris)
+
+
 
 }
