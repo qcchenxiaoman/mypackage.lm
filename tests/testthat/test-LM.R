@@ -2,6 +2,8 @@ test_that("LM: Error input", {
   expect_output(LM(Species ~ Sepal.Length + Petal.Length, data = iris))
 })
 
+
+
 test_that("LM: Coefficients correct", {
   expect_equal(LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)$coefficients,
                lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)$coefficients)

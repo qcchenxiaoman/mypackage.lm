@@ -27,7 +27,7 @@
 #'
 #'@export
 #'
-LM = function(formula, data, intercept = TRUE) {
+LM = function(formula, data) {
   #### Remove NAs ####
   data = na.omit(data)
 
