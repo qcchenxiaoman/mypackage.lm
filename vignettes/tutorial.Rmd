@@ -64,7 +64,7 @@ LM(Sepal.Width ~ I(Sepal.Length * Petal.Length), data = iris)
 
 #### Fit linear regression model without intercept 
 
-Add -1 in the formula. 
+Add -1 in the formula to represent without intercept. 
 ```{r}
 LM(Sepal.Width ~ -1 + Sepal.Length + Petal.Width, data = iris)
 ```
