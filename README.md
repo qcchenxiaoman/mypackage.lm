@@ -60,5 +60,5 @@ summaryLM(LM(Sepal.Width ~ Sepal.Length + Petal.Width, data = iris))
 #> F-Statistic: 22.4553538280624 on 2 and 147 DF, p-value: 3.09052605729221e-09
 ```
 
-For more detailed tutorial and comparisons against the existing R function, 
+For more detailed tutorial and comparisons against the existing `lm()` and `summary(lm())` functions, 
 please refer to the vignettes via the following code `browseVignettes(package = 'mypackage.lm')`.
