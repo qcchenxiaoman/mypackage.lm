@@ -40,7 +40,7 @@ summaryLM = function(result) {
   cat("---\n")
 
   Signif.codes =
-    "Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1"
+    "Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
   cat(Signif.codes, "\n\n")
 
   summary_LM =
