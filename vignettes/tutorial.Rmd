@@ -25,13 +25,13 @@ library(mypackage.lm)
 
 `LM` is a function that is designed to perform the fitting of linear regression models, 
 which gives the essential fitted values and related results from a fitted linear regression model. 
-`summaryLM()` is a function that prints the summary of the output from `LM`. The default data set  `iris` is used for examples and tutorials. 
+`summaryLM()` is a function that prints the summary of the output from `LM()`. The default dataset  `iris` is used for examples and tutorials. 
 
 ### Usage of function `LM()` and `summaryLM()`:
 
 In this section, we introduce the usage of `LM` and `summaryLM()`.  
 
-#### Call the function `LM()` and obtain the related fitted values and results 
+#### Call the function `LM()` and obtain the outputs relate to the fitted model
 
 ```{r}
 LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
@@ -41,7 +41,14 @@ LM_result$rank
 LM_result$fitted.values
 LM_result$df.residual
 LM_result$call
-LM_result$model
+LM_result$terms
+LM_result$coefficients_df
+LM_result$sigma
+LM_result$r.squared
+LM_result$adj.r.squared
+LM_result$fstatistic
+LM_result$`F.p-value`
+LM_result$cov.unscaled
 ```
 
 All the related results include: coefficients, residuals, rank, fitted.values, df.residual, model, call, terms, coefficients_df, sigma, r.squared, adj.r.squared, fstatistic, F.p-value, cov.unscaled. These variables can all be called by the format of `LM_result$variable_name`. 
@@ -56,7 +63,7 @@ summaryLM(LM(Sepal.Width ~ Sepal.Length + Petal.Width, data = iris))
 
 #### Two ways to include interaction 
   
-1.  Using * includes main effects and interaction 
+1. Using * includes main effects and interaction 
 ```{r}
 LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
 ```
@@ -67,15 +74,14 @@ LM(Sepal.Width ~ I(Sepal.Length * Petal.Length), data = iris)
 ```
 
 #### Fit linear regression model without intercept 
-
-Add -1 in the formula to represent without intercept. 
 ```{r}
-LM(Sepal.Width ~ -1 + Sepal.Length + Petal.Width, data = iris)
+LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Width, data = iris, intercept = FALSE)
+summaryLM(LM_result)
 ```
 
 
 ### Correctness and Efficiency(Benchmark): `LM()` against `lm()` and `summary(lm())`:
-Both the build-in methods `lm` and `summary(lm)` returns the related results from a fitted linear regression model, but each method would return different kinds of results. However, the function `LM` combine those results, which includes the essential results from both methods. 
+Both the build-in methods `lm()` and `summary(lm())` returns the related results from a fitted linear regression model, but each method would return different kinds of results. Therefore, the function `LM()` combine those results, which includes the essential results from both methods. 
 
 Therefore, in this section, we compare the outputs of `LM()` against build-in method `lm` and `summary(lm())`. 
 
@@ -151,7 +157,7 @@ mark(LM_result$fstatistic, lm_summary_result$fstatistic)
 ```
 
 
-#### Compare: Unscaled Covariance
+#### Compare: Unscaled Variance-Covariance matrix
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$cov.unscaled, lm_summary_result$cov.unscaled) 
 mark(LM_result$cov.unscaled, lm_summary_result$cov.unscaled)

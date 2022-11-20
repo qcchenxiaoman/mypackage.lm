@@ -7,7 +7,7 @@
 LM(formula, data, intercept = TRUE)
 }
 \arguments{
-\item{formula}{an object of class "formula": a symbolic description of the model to be fitted.}
+\item{formula}{an object of class "formula": a symbolic description of the model to be fitted. Note that the response should be numeric type.}
 
 \item{data}{an optional data frame containing the variables in the model.}
 
@@ -35,7 +35,7 @@ An object of class "LM" is a list containing at least the following components:
 }
 \description{
 LM is used to fit linear models, including multivariate ones. It can be used to carry out regression.
-It yields the same results as the build-in methods lm() and summary(lm()).
+It yields the same but combined output results from the build-in methods lm() and summary(lm()).
 }
 \examples{
 ## fit the simple linear regression model
@@ -47,7 +47,8 @@ LM_result$coefficients ## obtain estimates of beta coefficients
 LM_result$fitted.values ## obtain fitted mean values
 
 ## fit the multiple linear regression model with interaction terms
-LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
+LM_result = LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
+summaryLM(LM_result)
 
 ## fit the linear regression model with only interaction terms
 LM(Sepal.Width ~ I(Sepal.Length * Petal.Length), data = iris)

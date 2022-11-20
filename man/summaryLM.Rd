@@ -10,7 +10,7 @@ summaryLM(result)
 \item{result}{the summary of all outputs by using LM() to fit the linear regression model}
 }
 \description{
-summaryLM is a generic function used to produce result summaries of the results of various model fitting functions.
+summaryLM is a function used to produce result summaries of the results of the fitted model by using LM().
 It mimics the printed output of the build-in method summary(lm()).
 }
 \examples{

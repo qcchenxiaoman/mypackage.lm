@@ -1,8 +1,8 @@
 #'LM
 #'
 #'LM is used to fit linear models, including multivariate ones. It can be used to carry out regression.
-#'It yields the same results as the build-in methods lm() and summary(lm()).
-#'@param formula an object of class "formula": a symbolic description of the model to be fitted.
+#'It yields the same but combined output results from the build-in methods lm() and summary(lm()).
+#'@param formula an object of class "formula": a symbolic description of the model to be fitted. Note that the response should be numeric type.
 #'
 #'@param data an optional data frame containing the variables in the model.
 #'
@@ -38,7 +38,8 @@
 #'LM_result$fitted.values ## obtain fitted mean values
 #'
 #'## fit the multiple linear regression model with interaction terms
-#'LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
+#'LM_result = LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
+#'summaryLM(LM_result)
 #'
 #'## fit the linear regression model with only interaction terms
 #'LM(Sepal.Width ~ I(Sepal.Length * Petal.Length), data = iris)
