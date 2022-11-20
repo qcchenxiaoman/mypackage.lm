@@ -4,18 +4,24 @@
 \alias{LM}
 \title{LM}
 \usage{
-LM(formula, data)
+LM(formula, data, intercept = TRUE)
 }
 \arguments{
 \item{formula}{an object of class "formula": a symbolic description of the model to be fitted.}
 
 \item{data}{an optional data frame containing the variables in the model.}
+
+\item{intercept}{If the model fit with intercept, intercept = TRUE;
+if model fit without intercept, intercept = FALSE.
+The default setting is intercept = TRUE.}
 }
 \value{
-a list of result: coefficients, residuals, rank, fitted.values, df.residual, model, call, terms, coefficients_df, sigma, r.squared, adj.r.squared, fstatistic, F.p-value, cov.unscaled
+a list of result:
+coefficients, residuals, rank, fitted.values, df.residual, model, call, terms, coefficients_df, sigma, r.squared, adj.r.squared, fstatistic, F.p-value, cov.unscaled
 }
 \description{
-Fit linear regression model by given dataset and corresponding interests of covariates
+LM is used to fit linear models, including multivariate ones. It can be used to carry out regression.
+It yields the same results as the build-in methods lm() and summary(lm()).
 }
 \examples{
 ## fit the simple linear regression model

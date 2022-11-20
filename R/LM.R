@@ -1,12 +1,17 @@
 #'LM
 #'
-#'Fit linear regression model by given dataset and corresponding interests of covariates
-#'@param formula  an object of class "formula": a symbolic description of the model to be fitted.
+#'LM is used to fit linear models, including multivariate ones. It can be used to carry out regression.
+#'It yields the same results as the build-in methods lm() and summary(lm()).
+#'@param formula an object of class "formula": a symbolic description of the model to be fitted.
 #'
 #'@param data an optional data frame containing the variables in the model.
 #'
+#'@param intercept If the model fit with intercept, intercept = TRUE;
+#'if model fit without intercept, intercept = FALSE.
+#'The default setting is intercept = TRUE.
 #'
-#'@return a list of result: coefficients, residuals, rank, fitted.values, df.residual, model, call, terms, coefficients_df, sigma, r.squared, adj.r.squared, fstatistic, F.p-value, cov.unscaled
+#'@return a list of result:
+#'coefficients, residuals, rank, fitted.values, df.residual, model, call, terms, coefficients_df, sigma, r.squared, adj.r.squared, fstatistic, F.p-value, cov.unscaled
 #'
 #'
 #'@examples
@@ -27,7 +32,7 @@
 #'
 #'@export
 #'
-LM = function(formula, data) {
+LM = function(formula, data, intercept = TRUE) {
   #### Remove NAs ####
   data = na.omit(data)
 
@@ -48,10 +53,15 @@ LM = function(formula, data) {
     ))
   }
 
-  #### Get X, n, p ####
-  X = model.matrix(formula, data)
-  n = nrow(X)
+  #### Get X, n, p depends on intercept ####
+  if(intercept == TRUE){
+    X = model.matrix(formula, data)
+  }else{
+    X = model.matrix(formula, data)[,-1]
+  }
   p = ncol(X)
+  n = nrow(X)
+
 
   #### Estimation: betahat and var(betahat) ####
   betahat = solve(t(X) %*% X) %*% t(X) %*% Y
@@ -78,17 +88,12 @@ LM = function(formula, data) {
                      lower.tail = FALSE)
 
   #### Inference: F statistic and p val for H0: beta1=...=0 ####
-  # if(intercept == FALSE){
-  #   Ybar = 0
-  # }else{
-  #   Ybar = mean(Y)
-  # }
-  Ybar = mean(Y)
+  Ybar = intercept * mean(Y)
   SSE = sum((Y - Yhat) ^ 2)
   SSR = sum((Yhat - Ybar) ^ 2)
   SSY = SSE + SSR
-  F_stat = (SSR / (p - 1)) / (SSE / (n - p))
-  F_p_value = 1 - pf(F_stat, (p - 1), (n - p))
+  F_stat = (SSR / (p + (-1) * intercept)) / (SSE / (n - p))
+  F_p_value = 1 - pf(F_stat, p + (-1) * intercept, (n - p))
 
   #### Result ####
   LM_coefficients_table = data.frame(
@@ -99,14 +104,18 @@ LM = function(formula, data) {
   )
 
   LM_r.squared = 1 - SSE / SSY
-  LM_adj.r.squared = 1 - (SSE / (n - p)) / (SSY / (n - 1))
-  LM_model = cbind(data[all.vars(formula)[1]], X[,-1])
+  LM_adj.r.squared = 1 - (SSE / (n - p)) / (SSY / (n + (-1) * intercept))
+  if(intercept == TRUE){
+    LM_model = cbind(data[all.vars(formula)[1]], X[,-1])
+  }else{
+    LM_model = cbind(data[all.vars(formula)[1]], X)
+  }
+
   LM_terms = terms(formula)
   LM_sigma = sqrt(sigma_squared)[1]
   LM_fstatistic = cbind(value = F_stat,
-                        numdf = p - 1,
+                        numdf = p + (-1) * intercept,
                         dendf = n - p)
-
 
   LM_call = paste(c('lm(', formula, ')'), collapse = '')
   LM_cov.unscaled = solve(t(X) %*% X)
@@ -145,4 +154,15 @@ LM = function(formula, data) {
                     "cov.unscaled")
   return(invisible(result))
 }
+
+
+# #test without intercept
+# formula = Sepal.Width ~ Sepal.Length + Petal.Length
+# LM(Sepal.Width ~ Sepal.Length + Petal.Length, data=iris, intercept = FALSE)$fstatistic
+# summary(lm(Sepal.Width ~ -1 + Sepal.Length + Petal.Length, data=iris))$fstatistic
+#
+
+
+
+
 
