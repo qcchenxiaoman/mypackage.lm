@@ -33,12 +33,15 @@ In this section, we introduce the usage of `LM` and `summaryLM()`.
 
 #### Call the function `LM()` and obtain the related fitted values and results 
 
-For example, we can obtain the $R^2$ and  $R^2_{adj}$ for the fitted model, as well as the fitted coefficients and corresponding t-test results as follow: 
 ```{r}
 LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
-LM_result$r.squared
-LM_result$adj.r.squared
-LM_result$coefficients_df
+LM_result$coefficients
+LM_result$residuals
+LM_result$rank
+LM_result$fitted.values
+LM_result$df.residual
+LM_result$call
+LM_result$model
 ```
 
 All the related results include: coefficients, residuals, rank, fitted.values, df.residual, model, call, terms, coefficients_df, sigma, r.squared, adj.r.squared, fstatistic, F.p-value, cov.unscaled. These variables can all be called by the format of `LM_result$variable_name`. 
@@ -117,13 +120,6 @@ mark(LM_result$fitted.values, lm_result$fitted.values)
 all.equal(LM_result$df.residual, lm_result$df.residual) 
 mark(LM_result$df.residual, lm_result$df.residual)
 #plot(mark(LM_result$df.residual, lm_result$df.residual))
-```
-
-#### Compare: Model
-```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
-all.equal(as.matrix(LM_result$model), as.matrix(lm_result$model))
-mark(as.matrix(LM_result$model), as.matrix(lm_result$model))
-#plot(mark(as.matrix(LM_result$model), as.matrix(lm_result$model)))
 ```
 
 #### Compare: Sigma

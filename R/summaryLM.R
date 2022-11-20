@@ -1,13 +1,24 @@
 #'summaryLM
 #'
-#'Print the summary of fitted model in LM
-#'Mimic the printing output of the build-in method summary(lm())
-#'@param result the summary of all output from fitted LM
+#'summaryLM is a generic function used to produce result summaries of the results of various model fitting functions.
+#'It mimics the printed output of the build-in method summary(lm()).
+#'@param result the summary of all outputs by using LM() to fit the linear regression model
 #'
 #'@examples
 #'## fit the simple linear regression model
 #'LM_result = LM(Sepal.Width ~ Sepal.Length, data = iris)
-#'## obtain the summary of the fitted model
+#'summaryLM(LM_result) ## obtain the summary of the fitted model
+#'
+#'## fit the simple linear regression model
+#'LM_result = LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE) # omiting intercept
+#'summaryLM(LM_result)
+#'
+#'## fit the multiple linear regression model
+#'LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
+#'summaryLM(LM_result)
+#'
+#'## fit the multiple linear regression model with interaction
+#'LM_result = LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
 #'summaryLM(LM_result)
 #'
 #'@export

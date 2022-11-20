@@ -10,25 +10,38 @@
 #'if model fit without intercept, intercept = FALSE.
 #'The default setting is intercept = TRUE.
 #'
-#'@return a list of result:
-#'coefficients, residuals, rank, fitted.values, df.residual, model, call, terms, coefficients_df, sigma, r.squared, adj.r.squared, fstatistic, F.p-value, cov.unscaled
+#'@return An object of class "LM" is a list containing at least the following components:
+#' \describe{
+#'   \item{coefficients}{a named vector of coefficients}
+#'   \item{residuals}{the residuals, that is response minus fitted values.}
+#'   \item{rank}{the numeric rank of the fitted linear model.}
+#'   \item{fitted.values}{the fitted mean values.}
+#'   \item{df.residual}{the residual degrees of freedom.}
+#'   \item{call}{the matched call.}
+#'   \item{terms}{the terms object used.}
+#'   \item{coefficients_df}{the table includes estimates of beta coefficients, standard error, t value, and p-value}
+#'   \item{sigma}{the residual standard error}
+#'   \item{r.squared}{the proportion of the variance for a dependent variable that's explained by independent variable(s)}
+#'   \item{adj.r.squared}{a penalized version of R_squared}
+#'   \item{fstatistic}{the overall F statistic and its corresponding degrees of freedom of numerator and denominator}
+#'   \item{cov.unscaled}{the unscaled var-cov matrix of estimates of beta coefficients}
+#' }
 #'
 #'
 #'@examples
 #'## fit the simple linear regression model
-#'LM_result = LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE) # omiting intercept
+#'LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE) # omiting intercept
 #'
 #'## fit the multiple linear regression model
 #'LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
-#'LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)$coefficients ## obtain coefficients
+#'LM_result$coefficients ## obtain estimates of beta coefficients
+#'LM_result$fitted.values ## obtain fitted mean values
 #'
 #'## fit the multiple linear regression model with interaction terms
 #'LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
 #'
 #'## fit the linear regression model with only interaction terms
 #'LM(Sepal.Width ~ I(Sepal.Length * Petal.Length), data = iris)
-#'
-#'
 #'
 #'@export
 #'
@@ -54,15 +67,14 @@ LM = function(formula, data, intercept = TRUE) {
   }
 
   #### Get X, n, p depends on intercept ####
-  if(intercept == TRUE){
+  if (intercept == TRUE) {
     X = model.matrix(formula, data)
-  }else{
-    X = as.matrix(model.matrix(formula, data)[,-1], nrow = nrow(data))
+  } else{
+    X = as.matrix(model.matrix(formula, data)[, -1], nrow = nrow(data))
     colnames(X) = colnames(model.matrix(formula, data))[-1]
   }
   p = ncol(X)
   n = nrow(X)
-
 
   #### Estimation: betahat and var(betahat) ####
   betahat = solve(t(X) %*% X) %*% t(X) %*% Y
@@ -96,65 +108,62 @@ LM = function(formula, data, intercept = TRUE) {
   F_stat = (SSR / (p + (-1) * intercept)) / (SSE / (n - p))
   F_p_value = 1 - pf(F_stat, p + (-1) * intercept, (n - p))
 
-  #### Result ####
+  #### Outputs ####
   LM_coefficients_table = data.frame(
     "Estimate" = betahat,
     "Std. Error" = se_betahat,
     "t value" = t_statistic,
-    "Pr(>|t|)" = t_p_value, check.names = FALSE
+    "Pr(>|t|)" = t_p_value,
+    check.names = FALSE
   )
 
   LM_r.squared = 1 - SSE / SSY
   LM_adj.r.squared = 1 - (SSE / (n - p)) / (SSY / (n + (-1) * intercept))
-  if(intercept == TRUE){
-    LM_model = cbind(data[all.vars(formula)[1]], X[,-1])
-  }else{
-    LM_model = cbind(data[all.vars(formula)[1]], X)
-  }
 
   LM_terms = terms(formula)
   LM_sigma = sqrt(sigma_squared)[1]
-  LM_fstatistic = cbind(value = F_stat,
-                        numdf = p + (-1) * intercept,
-                        dendf = n - p)
+  LM_fstatistic = cbind(
+    value = F_stat,
+    numdf = p + (-1) * intercept,
+    dendf = n - p
+  )
 
   LM_call = paste(c('lm(', formula, ')'), collapse = '')
   LM_cov.unscaled = solve(t(X) %*% X)
 
-  #### Make result list ####
-  result = list(betahat[, 1],
-                epsilonhat,
-                p,
-                Yhat,
-                n - p,
-                LM_model,
-                LM_call,
-                LM_terms,
-                LM_coefficients_table,
-                LM_sigma,
-                LM_r.squared,
-                LM_adj.r.squared,
-                LM_fstatistic[1,],
-                F_p_value,
-                LM_cov.unscaled)
+  #### Make output list ####
+  result = list(
+    betahat[, 1],
+    epsilonhat,
+    p,
+    Yhat,
+    n - p,
+    LM_call,
+    LM_terms,
+    LM_coefficients_table,
+    LM_sigma,
+    LM_r.squared,
+    LM_adj.r.squared,
+    LM_fstatistic[1, ],
+    F_p_value,
+    LM_cov.unscaled
+  )
 
-  names(result) = c("coefficients",
-                    "residuals",
-                    "rank",
-                    "fitted.values",
-                    "df.residual",
-                    "model",
-                    "call",
-                    "terms",
-                    "coefficients_df",
-                    "sigma",
-                    "r.squared",
-                    "adj.r.squared",
-                    "fstatistic",
-                    "F.p-value",
-                    "cov.unscaled")
+  names(result) = c(
+    "coefficients",
+    "residuals",
+    "rank",
+    "fitted.values",
+    "df.residual",
+    "call",
+    "terms",
+    "coefficients_df",
+    "sigma",
+    "r.squared",
+    "adj.r.squared",
+    "fstatistic",
+    "F.p-value",
+    "cov.unscaled"
+  )
   return(invisible(result))
 }
-
-
-

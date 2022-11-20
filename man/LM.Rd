@@ -16,8 +16,22 @@ if model fit without intercept, intercept = FALSE.
 The default setting is intercept = TRUE.}
 }
 \value{
-a list of result:
-coefficients, residuals, rank, fitted.values, df.residual, model, call, terms, coefficients_df, sigma, r.squared, adj.r.squared, fstatistic, F.p-value, cov.unscaled
+An object of class "LM" is a list containing at least the following components:
+\describe{
+  \item{coefficients}{a named vector of coefficients}
+  \item{residuals}{the residuals, that is response minus fitted values.}
+  \item{rank}{the numeric rank of the fitted linear model.}
+  \item{fitted.values}{the fitted mean values.}
+  \item{df.residual}{the residual degrees of freedom.}
+  \item{call}{the matched call.}
+  \item{terms}{the terms object used.}
+  \item{coefficients_df}{the table includes estimates of beta coefficients, standard error, t value, and p-value}
+  \item{sigma}{the residual standard error}
+  \item{r.squared}{the proportion of the variance for a dependent variable that's explained by independent variable(s)}
+  \item{adj.r.squared}{a penalized version of R_squared}
+  \item{fstatistic}{the overall F statistic and its corresponding degrees of freedom of numerator and denominator}
+  \item{cov.unscaled}{the unscaled var-cov matrix of estimates of beta coefficients}
+}
 }
 \description{
 LM is used to fit linear models, including multivariate ones. It can be used to carry out regression.
@@ -25,18 +39,17 @@ It yields the same results as the build-in methods lm() and summary(lm()).
 }
 \examples{
 ## fit the simple linear regression model
-LM_result = LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE) # omiting intercept
+LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE) # omiting intercept
 
 ## fit the multiple linear regression model
 LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
-LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)$coefficients ## obtain coefficients
+LM_result$coefficients ## obtain estimates of beta coefficients
+LM_result$fitted.values ## obtain fitted mean values
 
 ## fit the multiple linear regression model with interaction terms
 LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
 
 ## fit the linear regression model with only interaction terms
 LM(Sepal.Width ~ I(Sepal.Length * Petal.Length), data = iris)
-
-
 
 }

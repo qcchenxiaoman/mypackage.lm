@@ -30,7 +30,7 @@ You can install the development version of mypackage.lm from [GitHub](https://gi
 devtools::install_github("qcchenxiaoman/mypackage.lm", build_vignettes = T)
 ```
 
-## Example
+## Usage
 
 This is a basic example which shows you how to solve a common problem:
 
