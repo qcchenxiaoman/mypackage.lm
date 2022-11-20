@@ -7,6 +7,8 @@ test_that("LM: Coefficients correct", {
                lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)$coefficients)
   expect_equal(LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris, intercept = FALSE)$coefficients,
                lm(Sepal.Width ~ -1 + Sepal.Length + Petal.Length, data = iris)$coefficients)
+  expect_equal(LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE)$coefficients,
+               lm(Sepal.Width ~ -1 + Sepal.Length, data = iris)$coefficients)
 })
 
 test_that("LM: Residuals correct", {
@@ -14,6 +16,8 @@ test_that("LM: Residuals correct", {
                lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)$residuals)
   expect_equal(LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris, intercept = FALSE)$residuals,
                lm(Sepal.Width ~ -1 + Sepal.Length + Petal.Length, data = iris)$residuals)
+  expect_equal(LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE)$residuals,
+               lm(Sepal.Width ~ -1 + Sepal.Length, data = iris)$residuals)
 })
 
 test_that("LM: Rank correct", {
@@ -21,6 +25,8 @@ test_that("LM: Rank correct", {
                lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)$rank)
   expect_equal(LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris, intercept = FALSE)$rank,
                lm(Sepal.Width ~ -1 + Sepal.Length + Petal.Length, data = iris)$rank)
+  expect_equal(LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE)$rank,
+               lm(Sepal.Width ~ -1 + Sepal.Length, data = iris)$rank)
 })
 
 test_that("LM: Fitted values correct", {
@@ -28,6 +34,8 @@ test_that("LM: Fitted values correct", {
                lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)$fitted.values)
   expect_equal(LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris, intercept = FALSE)$fitted.values,
                lm(Sepal.Width ~ -1 + Sepal.Length + Petal.Length, data = iris)$fitted.values)
+  expect_equal(LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE)$fitted.values,
+               lm(Sepal.Width ~ -1 + Sepal.Length, data = iris)$fitted.values)
 })
 
 test_that("LM: Degree of freedom of Residual correct", {
@@ -35,6 +43,8 @@ test_that("LM: Degree of freedom of Residual correct", {
                lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)$df.residual)
   expect_equal(LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris, intercept = FALSE)$df.residual,
                lm(Sepal.Width ~ -1 + Sepal.Length + Petal.Length, data = iris)$df.residual)
+  expect_equal(LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE)$df.residual,
+               lm(Sepal.Width ~ -1 + Sepal.Length, data = iris)$df.residual)
 })
 
 test_that("LM: Model correct", {
@@ -42,6 +52,8 @@ test_that("LM: Model correct", {
                as.matrix(lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)$model))
   expect_equal(as.matrix(LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris, intercept = FALSE)$model),
                as.matrix(lm(Sepal.Width ~ -1 + Sepal.Length + Petal.Length, data = iris)$model))
+  expect_equal(as.matrix(LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE)$model),
+               as.matrix(lm(Sepal.Width ~ -1 + Sepal.Length, data = iris)$model))
 })
 
 test_that("LM: Sigma correct", {
@@ -49,6 +61,8 @@ test_that("LM: Sigma correct", {
                summary(lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris))$sigma)
   expect_equal(LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris, intercept = FALSE)$sigma,
                summary(lm(Sepal.Width ~ -1 + Sepal.Length + Petal.Length, data = iris))$sigma)
+  expect_equal(LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE)$sigma,
+               summary(lm(Sepal.Width ~ -1 + Sepal.Length, data = iris))$sigma)
 })
 
 test_that("LM: R^2 correct", {
@@ -56,6 +70,8 @@ test_that("LM: R^2 correct", {
                summary(lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris))$r.squared)
   expect_equal(LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris, intercept = FALSE)$r.squared,
                summary(lm(Sepal.Width ~ -1 + Sepal.Length + Petal.Length, data = iris))$r.squared)
+  expect_equal(LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE)$r.squared,
+               summary(lm(Sepal.Width ~ -1 + Sepal.Length, data = iris))$r.squared)
 })
 
 test_that("LM: R_{adj}^2 correct", {
@@ -63,6 +79,8 @@ test_that("LM: R_{adj}^2 correct", {
                summary(lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris))$adj.r.squared)
   expect_equal(LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris, intercept = FALSE)$adj.r.squared,
                summary(lm(Sepal.Width ~ -1 + Sepal.Length + Petal.Length, data = iris))$adj.r.squared)
+  expect_equal(LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE)$adj.r.squared,
+               summary(lm(Sepal.Width ~ -1 + Sepal.Length, data = iris))$adj.r.squared)
 })
 
 test_that("LM: F statistics and P values correct", {
@@ -70,6 +88,8 @@ test_that("LM: F statistics and P values correct", {
                summary(lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris))$fstatistic)
   expect_equal(LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris, intercept = FALSE)$fstatistic,
                summary(lm(Sepal.Width ~ -1 + Sepal.Length + Petal.Length, data = iris))$fstatistic)
+  expect_equal(LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE)$fstatistic,
+               summary(lm(Sepal.Width ~ -1 + Sepal.Length, data = iris))$fstatistic)
 })
 
 test_that("LM: Unscaled Covariance correct", {
@@ -77,10 +97,13 @@ test_that("LM: Unscaled Covariance correct", {
                summary(lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris))$cov.unscaled)
   expect_equal(LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris, intercept = FALSE)$cov.unscaled,
                summary(lm(Sepal.Width ~ -1 + Sepal.Length + Petal.Length, data = iris))$cov.unscaled)
+  expect_equal(LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE)$cov.unscaled,
+               summary(lm(Sepal.Width ~ -1 + Sepal.Length, data = iris))$cov.unscaled)
 })
 
 test_that("summaryLM: Expect output", {
   expect_output(summaryLM(LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)))
   expect_output(summaryLM(LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris, intercept = FALSE)))
+  expect_output(summaryLM(LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE)))
 })
 

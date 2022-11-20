@@ -57,7 +57,8 @@ LM = function(formula, data, intercept = TRUE) {
   if(intercept == TRUE){
     X = model.matrix(formula, data)
   }else{
-    X = model.matrix(formula, data)[,-1]
+    X = as.matrix(model.matrix(formula, data)[,-1], nrow = nrow(data))
+    colnames(X) = colnames(model.matrix(formula, data))[-1]
   }
   p = ncol(X)
   n = nrow(X)
@@ -66,11 +67,11 @@ LM = function(formula, data, intercept = TRUE) {
   #### Estimation: betahat and var(betahat) ####
   betahat = solve(t(X) %*% X) %*% t(X) %*% Y
   Yhat = as.vector(X %*% betahat)
-  names(Yhat) <- row.names(data)
+  names(Yhat) = row.names(data)
 
   ## residual
   epsilonhat = as.vector(Y - Yhat)
-  names(epsilonhat) <- row.names(data)
+  names(epsilonhat) = row.names(data)
 
   ## estimated sigma^2
   sigma_squared = t(epsilonhat) %*% epsilonhat / (n - p)
@@ -154,15 +155,6 @@ LM = function(formula, data, intercept = TRUE) {
                     "cov.unscaled")
   return(invisible(result))
 }
-
-
-# #test without intercept
-# formula = Sepal.Width ~ Sepal.Length + Petal.Length
-# LM(Sepal.Width ~ Sepal.Length + Petal.Length, data=iris, intercept = FALSE)$fstatistic
-# summary(lm(Sepal.Width ~ -1 + Sepal.Length + Petal.Length, data=iris))$fstatistic
-#
-
-
 
 
 
