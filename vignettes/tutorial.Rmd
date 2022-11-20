@@ -34,7 +34,7 @@ In this section, we introduce the usage of `LM` and `summaryLM()`.
 #### Call the function `LM()` and obtain the outputs relate to the fitted model
 
 ```{r}
-LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
+LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Width, data = iris)
 LM_result$coefficients
 LM_result$residuals
 LM_result$rank
