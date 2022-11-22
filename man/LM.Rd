@@ -42,6 +42,8 @@ adj.r.squared: a penalized version of r.squared
 
 fstatistic: the overall F statistic and its corresponding degrees of freedom of numerator and denominator
 
+F.p-value: the overall F test p value
+
 cov.unscaled: the unscaled var-cov matrix of estimates of beta coefficients
 }
 \description{

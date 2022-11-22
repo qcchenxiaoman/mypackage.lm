@@ -23,6 +23,7 @@
 #'@return r.squared: the proportion of the variance for a dependent variable that's explained by independent variable(s)
 #'@return adj.r.squared: a penalized version of r.squared
 #'@return fstatistic: the overall F statistic and its corresponding degrees of freedom of numerator and denominator
+#'@return F.p-value: the overall F test p value
 #'@return cov.unscaled: the unscaled var-cov matrix of estimates of beta coefficients
 #'
 #'

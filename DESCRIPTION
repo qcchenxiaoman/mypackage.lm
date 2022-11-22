@@ -18,7 +18,8 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0),
     bench,
-    ggbeeswarm
+    ggbeeswarm,
+    tidyr
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 

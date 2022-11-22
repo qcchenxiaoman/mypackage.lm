@@ -96,7 +96,10 @@ Both the build-in methods `lm()` and `summary(lm())` returns the related results
 
 In this section, we compare the outputs of `LM()` against build-in method `lm()` and `summary(lm())`. 
 
-We use `LM()` and `lm()` and `summary(lm())` to fit the same model and compare both correctness and efficiency. 
+We use `LM()` and `lm()` and `summary(lm())` to fit the same model and compare both correctness and efficiency.
+By comparing all the returned essential values related to the fitted model, we see they are equivalent. 
+Note that we use the default dataset `iris` in R to obtain the following results. 
+
 ```{r}
 LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
 lm_result = lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
