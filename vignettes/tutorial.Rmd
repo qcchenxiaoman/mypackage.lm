@@ -10,6 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 library(stats)
 library(bench)
+library(ggbeeswarm)
+library(tidyr)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -65,7 +67,7 @@ summaryLM(LM(Sepal.Width ~ Sepal.Length + Petal.Width, data = iris))
 
 #### Fit a simple linear regression model
 ```{r}
-LM_result = LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE)
+LM_result = LM(Sepal.Width ~ Sepal.Length, data = iris)
 summaryLM(LM_result)
 ```
 
@@ -94,7 +96,7 @@ Both the build-in methods `lm()` and `summary(lm())` returns the related results
 
 In this section, we compare the outputs of `LM()` against build-in method `lm()` and `summary(lm())`. 
 
-We use `LM()` and `lm()` to fit the same model and compare both correctness and efficiency. 
+We use `LM()` and `lm()` and `summary(lm())` to fit the same model and compare both correctness and efficiency. 
 ```{r}
 LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
 lm_result = lm(Sepal.Width ~ Sepal.Length + Petal.Length, data = iris)
