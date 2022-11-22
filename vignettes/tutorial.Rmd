@@ -29,7 +29,7 @@ library(mypackage.lm)
 which gives the essential fitted values and related results from a fitted linear regression model. 
 `summaryLM()` is a function that prints the summary of the outputs from `LM()`. 
 
-Note: The default dataset `iris` is used for examples and tutorials. 
+Note: The `R`'s default dataset `iris` is used for examples and tutorials. 
 
 ### Usage of function `LM()` and `summaryLM()`:
 
