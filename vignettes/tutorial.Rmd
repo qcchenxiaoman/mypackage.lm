@@ -25,15 +25,18 @@ library(mypackage.lm)
 
 `LM` is a function that is designed to perform the fitting of linear regression models, 
 which gives the essential fitted values and related results from a fitted linear regression model. 
-`summaryLM()` is a function that prints the summary of the output from `LM()`. The default dataset  `iris` is used for examples and tutorials. 
+`summaryLM()` is a function that prints the summary of the outputs from `LM()`. 
+
+Note: The default dataset `iris` is used for examples and tutorials. 
 
 ### Usage of function `LM()` and `summaryLM()`:
 
-In this section, we introduce the usage of `LM` and `summaryLM()`.  
+In this section, we introduce the usage of `LM()` and `summaryLM()`.  
 
-#### Call the function `LM()` and obtain the outputs relate to the fitted model
+#### Call the function `LM()` and obtain the outputs relate to the fitted model using `$` followed by its name
 
 ```{r}
+## fit a multiple linear regression model
 LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Width, data = iris)
 LM_result$coefficients
 LM_result$residuals
@@ -53,37 +56,43 @@ LM_result$cov.unscaled
 
 All the related results include: coefficients, residuals, rank, fitted.values, df.residual, model, call, terms, coefficients_df, sigma, r.squared, adj.r.squared, fstatistic, F.p-value, cov.unscaled. These variables can all be called by the format of `LM_result$variable_name`. 
 
-#### Call the function `LM()` and use `summaryLM()` to print the output    
+#### Call the function `LM()` and use `summaryLM()` to print the outputs    
 
-`summaryLM()` provides a printed summary of outputs/related fitted results of the fitted linear regression model. 
+`summaryLM()` provides a printed summary of outputs/related fitted results of the fitted linear regression model:
 ```{r}
 summaryLM(LM(Sepal.Width ~ Sepal.Length + Petal.Width, data = iris))
 ```
 
-
-#### Two ways to include interaction 
-  
-1. Using * includes main effects and interaction 
+#### Fit a simple linear regression model
 ```{r}
-LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
-```
-  
-2. Using I includes only the interaction and omits main effects
-```{r}
-LM(Sepal.Width ~ I(Sepal.Length * Petal.Length), data = iris)
+LM_result = LM(Sepal.Width ~ Sepal.Length, data = iris, intercept = FALSE)
+summaryLM(LM_result)
 ```
 
-#### Fit linear regression model without intercept 
+#### Fit a linear regression model without intercept 
 ```{r}
 LM_result = LM(Sepal.Width ~ Sepal.Length + Petal.Width, data = iris, intercept = FALSE)
 summaryLM(LM_result)
 ```
 
+#### About adding interaction terms
+  
+1. Using * includes main effects and interaction:
+```{r}
+LM(Sepal.Width ~ Sepal.Length * Petal.Length, data = iris)
+```
+  
+2. Using I omits main effects and includes only the interaction:
+```{r}
+LM(Sepal.Width ~ I(Sepal.Length * Petal.Length), data = iris)
+```
+
+
 
 ### Correctness and Efficiency(Benchmark): `LM()` against `lm()` and `summary(lm())`:
-Both the build-in methods `lm()` and `summary(lm())` returns the related results from a fitted linear regression model, but each method would return different kinds of results. Therefore, the function `LM()` combine those results, which includes the essential results from both methods. 
+Both the build-in methods `lm()` and `summary(lm())` returns the related results from a fitted linear regression model by using `$`, but each method would return different kinds of results. Therefore, the function `LM()` combine those results, that is to include the essential results from both methods. 
 
-Therefore, in this section, we compare the outputs of `LM()` against build-in method `lm` and `summary(lm())`. 
+In this section, we compare the outputs of `LM()` against build-in method `lm()` and `summary(lm())`. 
 
 We use `LM()` and `lm()` to fit the same model and compare both correctness and efficiency. 
 ```{r}
@@ -97,63 +106,63 @@ lm_summary_result = summary(lm_result)
 library(bench)
 all.equal(LM_result$coefficients, lm_result$coefficients) 
 mark(LM_result$coefficients, lm_result$coefficients)
-#plot(mark(LM_result$coefficients, lm_result$coefficients))
+plot(mark(LM_result$coefficients, lm_result$coefficients))
 ```
 
 #### Compare: Residuals
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$residuals, lm_result$residuals) 
 mark(LM_result$residuals, lm_result$residuals)
-#plot(mark(LM_result$residuals, lm_result$residuals))
+plot(mark(LM_result$residuals, lm_result$residuals))
 ```
 
 #### Compare: Rank 
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$rank, lm_result$rank) 
 mark(LM_result$rank, lm_result$rank)
-#plot(mark(LM_result$rank, lm_result$rank))
+plot(mark(LM_result$rank, lm_result$rank))
 ```
 
 #### Compare: Fitted values
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$fitted.values, lm_result$fitted.values) 
 mark(LM_result$fitted.values, lm_result$fitted.values)
-#plot(mark(LM_result$fitted.values, lm_result$fitted.values))
+plot(mark(LM_result$fitted.values, lm_result$fitted.values))
 ```
 
 #### Compare: Degree of freedom of Residual
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$df.residual, lm_result$df.residual) 
 mark(LM_result$df.residual, lm_result$df.residual)
-#plot(mark(LM_result$df.residual, lm_result$df.residual))
+plot(mark(LM_result$df.residual, lm_result$df.residual))
 ```
 
 #### Compare: Sigma
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$sigma, lm_summary_result$sigma) 
 mark(LM_result$sigma, lm_summary_result$sigma)
-#plot(mark(LM_result$sigma, lm_summary_result$sigma))
+plot(mark(LM_result$sigma, lm_summary_result$sigma))
 ```
 
 #### Compare: $R^2$
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$r.squared, lm_summary_result$r.squared) 
 mark(LM_result$r.squared, lm_summary_result$r.squared)
-#plot(mark(LM_result$r.squared, lm_summary_result$r.squared))
+plot(mark(LM_result$r.squared, lm_summary_result$r.squared))
 ```
 
 #### Compare: $R_{adj}^2$
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$adj.r.squared, lm_summary_result$adj.r.squared) 
 mark(LM_result$adj.r.squared, lm_summary_result$adj.r.squared)
-#plot(mark(LM_result$adj.r.squared, lm_summary_result$adj.r.squared))
+plot(mark(LM_result$adj.r.squared, lm_summary_result$adj.r.squared))
 ```
 
 #### Compare: F statistics and P values 
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$fstatistic, lm_summary_result$fstatistic) 
 mark(LM_result$fstatistic, lm_summary_result$fstatistic)
-#plot(mark(LM_result$fstatistic, lm_summary_result$fstatistic))
+plot(mark(LM_result$fstatistic, lm_summary_result$fstatistic))
 ```
 
 
@@ -161,7 +170,7 @@ mark(LM_result$fstatistic, lm_summary_result$fstatistic)
 ```{r fig.align ='center', fig.width= 5, fig.height = 1.5, message=FALSE}
 all.equal(LM_result$cov.unscaled, lm_summary_result$cov.unscaled) 
 mark(LM_result$cov.unscaled, lm_summary_result$cov.unscaled)
-#plot(mark(LM_result$cov.unscaled, lm_summary_result$cov.unscaled))
+plot(mark(LM_result$cov.unscaled, lm_summary_result$cov.unscaled))
 ```
 
 
