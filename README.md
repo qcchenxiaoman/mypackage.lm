@@ -30,6 +30,7 @@ You can install the development version of mypackage.lm from [GitHub](https://gi
 # install.packages("bench")
 # install.packages("tidyr")
 # install.packages("ggbeeswarm")
+
 devtools::install_github("qcchenxiaoman/mypackage.lm", build_vignettes = T)
 ```
 
