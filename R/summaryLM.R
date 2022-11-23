@@ -34,7 +34,7 @@
 #'summaryLM(LM_result) ## obtain the summary of the fitted model
 #'
 #'## fit the simple linear regression model
-#'LM_result = LM(drat ~ wt + qsec, data = mtcars, intercept = FALSE) # omiting intercept
+#'LM_result = LM(drat ~ wt, data = mtcars, intercept = FALSE) # omiting intercept
 #'summaryLM(LM_result)
 #'
 #'## fit the multiple linear regression model
